@@ -16,6 +16,8 @@ const Book = sequelize.define("Book", {
         type: DataTypes.STRING,
         defaultValue: "some genre",
     },
-});
+},
+{ timestamps: false }
+);
 
 module.exports = Book;
