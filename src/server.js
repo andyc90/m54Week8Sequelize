@@ -7,10 +7,12 @@ const express = require("express");
 // Import models
 const Book = require("./books/model");
 const Genre = require("./genres/model");
+const Author = require("./authors/model");
 
 // Import routes
 const bookRouter = require("./books/routes");
 const genreRouter = require("./genres/routes");
+const authorRouter = require("./authors/routes");
 
 // Set port
 const port = process.env.PORT || 5001;
@@ -24,13 +26,18 @@ app.use(express.json());
 // Use routes
 app.use(bookRouter);
 app.use(genreRouter);
+app.use(authorRouter);
 
 // Sync database tables
 const syncTables = async () => {
   Genre.hasOne(Book);
   Book.belongsTo(Genre);
 
+  Author.hasOne(Book);
+  Book.belongsTo(Author);
+
   Genre.sync();
+  Author.sync();
   Book.sync();
 };
 

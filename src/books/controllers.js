@@ -6,7 +6,7 @@ const addBook = async (req, res) => {
     // Creates a new book instance with the given properties
     const book = await Book.create({
       title: req.body.title,
-      author: req.body.author,
+      AuthorId: req.body.AuthorId,
       GenreId: req.body.GenreId,
     });
 
@@ -22,7 +22,7 @@ const addBook = async (req, res) => {
 const getAllBooks = async (req, res) => {
   try {
     // Finds all books in the database and returns them
-    const books = await Book.findAll({ include: "Genre" });
+    const books = await Book.findAll({ include: ["Genre", "Author"] });
     res.status(200).json({ books: books });
   } catch (error) {
     // Returns an error response with the error message and details
