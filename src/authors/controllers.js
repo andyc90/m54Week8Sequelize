@@ -1,4 +1,3 @@
-// This file contains the functions for the authors routes
 const Author = require("./model");
 
 // Adds an author to the database

@@ -1,4 +1,3 @@
-// This file contains the functions for the genres routes
 const Genre = require("./model");
 
 // Adds a genre to the database
