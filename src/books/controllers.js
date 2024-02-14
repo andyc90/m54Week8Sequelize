@@ -87,10 +87,29 @@ const deleteBookByTitle = async (req, res) => {
   }
 };
 
+// Delete all books in the database
+
+const deleteAllBooks = async (req, res) => {
+  try {
+    // Deletes all books in the database
+    await Book.destroy({
+      where: {},
+      truncate: false,
+    });
+
+    // Returns a response with a success message
+    res.status(200).json({ message: "All books deleted" });
+  } catch (error) {
+    // Returns an error response with the error message and details
+    res.status(500).json({ message: error.message, error: error });
+  }
+};
+
 // Exports the functions
 module.exports = {
   addBook: addBook,
   getAllBooks: getAllBooks,
   updateAuthor: updateAuthor,
   deleteBookByTitle: deleteBookByTitle,
+  deleteAllBooks: deleteAllBooks,
 };
