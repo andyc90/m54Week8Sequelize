@@ -34,7 +34,7 @@ const getAllBooks = async (req, res) => {
 const updateAuthor = async (req, res) => {
   try {
     // Extracts the title and author from the request body
-    const { title, author } = req.body;
+    const { title, AuthorId } = req.body;
 
     // Finds the book with the given title
     const book = await Book.findOne({ where: { title: title } });
@@ -45,7 +45,7 @@ const updateAuthor = async (req, res) => {
     }
 
     // Updates the author of the book
-    book.author = author;
+    book.AuthorId = AuthorId;
     await book.save();
 
     // Returns a response with a success message and the updated book
