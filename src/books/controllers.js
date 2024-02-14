@@ -66,6 +66,34 @@ const getBookByTitle = async (req, res) => {
   }
 };
 
+// Returns a list of books by GenreId in the database
+const getBooksByGenre = async (req, res) => {
+  try {
+    // Extracts the genre ID from the query parameters
+    const genreId = req.body.GenreId;
+
+    // Check if GenreId is present in the query parameters
+    if (!genreId) {
+      return res
+        .status(400)
+        .json({ message: "GenreId is required in the query parameters" });
+    }
+
+    // Finds all books by the specified genre
+    const books = await Book.findAll({
+      where: { GenreId: genreId },
+      include: ["Genre", "Author"],
+      attributes: { exclude: ["GenreId", "AuthorId"] },
+    });
+
+    // Returns a response with the list of books by the genre
+    res.status(200).json({ books: books });
+  } catch (error) {
+    // Returns an error response with the error message and details
+    res.status(500).json({ message: error.message, error: error });
+  }
+};
+
 // Updates the author of a book with the given title
 const updateAuthor = async (req, res) => {
   try {
@@ -174,4 +202,5 @@ module.exports = {
   deleteAllBooks: deleteAllBooks,
   getAllBooksByAuthor: getAllBooksByAuthor,
   getBookByTitle: getBookByTitle,
+  getBooksByGenre: getBooksByGenre,
 };

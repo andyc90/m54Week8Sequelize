@@ -11,6 +11,7 @@ const {
   deleteAllBooks,
   getAllBooksByAuthor,
   getBookByTitle,
+  getBooksByGenre,
 } = require("./controllers");
 
 // Define the routes
@@ -21,6 +22,7 @@ bookRouter.delete("/books/deleteBookByTitle", deleteBookByTitle);
 bookRouter.delete("/books/deleteAllBooks", deleteAllBooks);
 bookRouter.get("/books/getAllBooksByAuthor", getAllBooksByAuthor);
 bookRouter.get("/books/getBookByTitle", getBookByTitle);
+bookRouter.get("/books/getBooksByGenre", getBooksByGenre);
 
 // Export the router
 module.exports = bookRouter;
