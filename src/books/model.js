@@ -1,10 +1,14 @@
+// Import the necessary modules
 const { DataTypes } = require("sequelize");
 
+// Import the sequelize connection
 const sequelize = require("../db/connection");
 
+// Define the Book model
 const Book = sequelize.define(
   "Book",
   {
+    // Define the columns of the Book model
     title: {
       type: DataTypes.STRING,
       unique: true,
@@ -19,7 +23,11 @@ const Book = sequelize.define(
       defaultValue: "some genre",
     },
   },
-  { timestamps: false }
+  {
+    // Disable the automatic timestamps
+    timestamps: false,
+  }
 );
 
+// Export the Book model
 module.exports = Book;
