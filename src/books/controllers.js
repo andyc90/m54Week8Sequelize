@@ -34,6 +34,38 @@ const getAllBooks = async (req, res) => {
   }
 };
 
+// Returns a book by title in the database
+const getBookByTitle = async (req, res) => {
+  try {
+    // Extracts the title from the request body
+    const { title } = req.body;
+
+    // Checks if the title is provided
+    if (!title) {
+      return res
+        .status(400)
+        .json({ message: "Title is required in the request body" });
+    }
+
+    // Finds the book with the given title
+    const book = await Book.findOne({
+      where: { title: title },
+      include: ["Genre", "Author"],
+    });
+
+    // Checks if the book exists
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    // Returns a response with the found book
+    res.status(200).json({ book: book });
+  } catch (error) {
+    // Returns an error response with the error message and details
+    res.status(500).json({ message: error.message, error: error });
+  }
+};
+
 // Updates the author of a book with the given title
 const updateAuthor = async (req, res) => {
   try {
@@ -141,4 +173,5 @@ module.exports = {
   deleteBookByTitle: deleteBookByTitle,
   deleteAllBooks: deleteAllBooks,
   getAllBooksByAuthor: getAllBooksByAuthor,
+  getBookByTitle: getBookByTitle,
 };
