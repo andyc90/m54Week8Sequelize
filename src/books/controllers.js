@@ -7,7 +7,7 @@ const addBook = async (req, res) => {
     const book = await Book.create({
       title: req.body.title,
       author: req.body.author,
-      genre: req.body.genre,
+      GenreId: req.body.GenreId,
     });
 
     // Returns a response with the created book and a success message
@@ -22,7 +22,7 @@ const addBook = async (req, res) => {
 const getAllBooks = async (req, res) => {
   try {
     // Finds all books in the database and returns them
-    const books = await Book.findAll();
+    const books = await Book.findAll({ include: "Genre" });
     res.status(200).json({ books: books });
   } catch (error) {
     // Returns an error response with the error message and details
@@ -83,7 +83,7 @@ const deleteBookByTitle = async (req, res) => {
   }
 };
 
-// Exports the addBook, getAllBooks, updateAuthor, and deleteBookByTitle functions
+// Exports the functions
 module.exports = {
   addBook: addBook,
   getAllBooks: getAllBooks,

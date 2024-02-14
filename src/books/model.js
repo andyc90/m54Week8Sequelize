@@ -18,10 +18,6 @@ const Book = sequelize.define(
       type: DataTypes.STRING,
       defaultValue: "some author",
     },
-    genre: {
-      type: DataTypes.STRING,
-      defaultValue: "some genre",
-    },
   },
   {
     // Disable the automatic timestamps

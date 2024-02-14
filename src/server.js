@@ -27,8 +27,11 @@ app.use(genreRouter);
 
 // Sync database tables
 const syncTables = async () => {
-  await Book.sync();
-  await Genre.sync();
+  Genre.hasOne(Book);
+  Book.belongsTo(Genre);
+
+  Genre.sync();
+  Book.sync();
 };
 
 // Health check route
