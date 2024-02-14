@@ -141,5 +141,4 @@ module.exports = {
   deleteBookByTitle: deleteBookByTitle,
   deleteAllBooks: deleteAllBooks,
   getAllBooksByAuthor: getAllBooksByAuthor,
-  getAuthorByName: getAuthorByName,
 };
