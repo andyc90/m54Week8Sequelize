@@ -22,7 +22,11 @@ const addBook = async (req, res) => {
 const getAllBooks = async (req, res) => {
   try {
     // Finds all books in the database and returns them
-    const books = await Book.findAll({ include: ["Genre", "Author"] });
+    const books = await Book.findAll({
+      include: ["Genre", "Author"],
+      attributes: { exclude: ["GenreId", "AuthorId"] },
+    });
+
     res.status(200).json({ books: books });
   } catch (error) {
     // Returns an error response with the error message and details
