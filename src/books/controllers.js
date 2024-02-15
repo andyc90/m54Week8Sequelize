@@ -38,7 +38,7 @@ const getAllBooks = async (req, res) => {
 const getBookByTitle = async (req, res) => {
   try {
     // Extracts the title from the request body
-    const { title } = req.body;
+    const { title } = req.params;
 
     // Checks if the title is provided
     if (!title) {
@@ -60,34 +60,6 @@ const getBookByTitle = async (req, res) => {
 
     // Returns a response with the found book
     res.status(200).json({ book: book });
-  } catch (error) {
-    // Returns an error response with the error message and details
-    res.status(500).json({ message: error.message, error: error });
-  }
-};
-
-// Returns a list of books by GenreId in the database
-const getBooksByGenre = async (req, res) => {
-  try {
-    // Extracts the genre ID from the query parameters
-    const genreId = req.body.GenreId;
-
-    // Check if GenreId is present in the query parameters
-    if (!genreId) {
-      return res
-        .status(400)
-        .json({ message: "GenreId is required in the query parameters" });
-    }
-
-    // Finds all books by the specified genre
-    const books = await Book.findAll({
-      where: { GenreId: genreId },
-      include: ["Genre", "Author"],
-      attributes: { exclude: ["GenreId", "AuthorId"] },
-    });
-
-    // Returns a response with the list of books by the genre
-    res.status(200).json({ books: books });
   } catch (error) {
     // Returns an error response with the error message and details
     res.status(500).json({ message: error.message, error: error });
@@ -165,34 +137,6 @@ const deleteAllBooks = async (req, res) => {
   }
 };
 
-// Returns a list of all books by AuthorId
-const getAllBooksByAuthor = async (req, res) => {
-  try {
-    // Extracts the author ID from the query parameters
-    const authorId = req.body.AuthorId;
-
-    // Check if AuthorId is present in the query parameters
-    if (!authorId) {
-      return res
-        .status(400)
-        .json({ message: "AuthorId is required in the query parameters" });
-    }
-
-    // Finds all books by the specified author
-    const books = await Book.findAll({
-      where: { AuthorId: authorId },
-      include: ["Genre", "Author"],
-      attributes: { exclude: ["GenreId", "AuthorId"] },
-    });
-
-    // Returns a response with the list of books by the author
-    res.status(200).json({ books: books });
-  } catch (error) {
-    // Returns an error response with the error message and details
-    res.status(500).json({ message: error.message, error: error });
-  }
-};
-
 // Exports the functions
 module.exports = {
   addBook: addBook,
@@ -200,7 +144,5 @@ module.exports = {
   updateAuthor: updateAuthor,
   deleteBookByTitle: deleteBookByTitle,
   deleteAllBooks: deleteAllBooks,
-  getAllBooksByAuthor: getAllBooksByAuthor,
   getBookByTitle: getBookByTitle,
-  getBooksByGenre: getBooksByGenre,
 };

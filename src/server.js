@@ -30,10 +30,10 @@ app.use(authorRouter);
 
 // Sync database tables
 const syncTables = async () => {
-  Genre.hasOne(Book);
+  Genre.hasMany(Book);
   Book.belongsTo(Genre);
 
-  Author.hasOne(Book);
+  Author.hasMany(Book);
   Book.belongsTo(Author);
 
   Genre.sync();
