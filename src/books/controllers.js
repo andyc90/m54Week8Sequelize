@@ -137,6 +137,45 @@ const deleteAllBooks = async (req, res) => {
   }
 };
 
+// Dynamically updates a book by title
+const updateBookByTitle = async (req, res) => {
+  try {
+    // Extracts the title from the request parameters
+    const { title } = req.params;
+
+    // Checks if the title is provided
+    if (!title) {
+      return res
+        .status(400)
+        .json({ message: "Title is required in the request parameters" });
+    }
+
+    // Finds the book with the given title
+    const book = await Book.findOne({ where: { title: title } });
+
+    // Checks if the book exists
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    // Updates the book dynamically based on the request body
+    for (const key in req.body) {
+      if (key !== "title") {
+        book[key] = req.body[key];
+      }
+    }
+
+    // Saves the updated book
+    await book.save();
+
+    // Returns a response with a success message and the updated book
+    res.status(200).json({ message: "Book updated", book: book });
+  } catch (error) {
+    // Returns an error response with the error message and details
+    res.status(500).json({ message: error.message, error: error });
+  }
+};
+
 // Exports the functions
 module.exports = {
   addBook: addBook,
@@ -145,4 +184,5 @@ module.exports = {
   deleteBookByTitle: deleteBookByTitle,
   deleteAllBooks: deleteAllBooks,
   getBookByTitle: getBookByTitle,
+  updateBookByTitle: updateBookByTitle,
 };

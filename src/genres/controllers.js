@@ -23,7 +23,7 @@ const getAllGenres = async (req, res) => {
   }
 };
 
-// Returns a list of books by Genre in the database
+// Returns a list of books by Genre
 const getBooksByGenre = async (req, res) => {
   try {
     // Extracts the genre ID from the query parameters
@@ -33,7 +33,7 @@ const getBooksByGenre = async (req, res) => {
     if (!name) {
       return res
         .status(400)
-        .json({ message: "GenreId is required in the query parameters" });
+        .json({ message: "Genre name is required in the URK parameters" });
     }
 
     // Finds all books by the specified genre

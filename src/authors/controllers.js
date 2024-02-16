@@ -25,13 +25,13 @@ const getAllAuthors = async (req, res) => {
   }
 };
 
-// Returns a list of all books by Author
+// Returns a list of books by Author
 const getBooksByAuthor = async (req, res) => {
   try {
-    // Extracts the author ID from the query parameters
+    // Extracts the author name from the URL parameters
     const name = req.params.name;
 
-    // Check if AuthorId is present in the query parameters
+    // Check if authorName is present in the URL parameters
     if (!name) {
       return res
         .status(400)
@@ -42,7 +42,7 @@ const getBooksByAuthor = async (req, res) => {
     const books = await Author.findAll({
       where: { name: name },
       include: ["Books"],
-      attributes: { exclude: ["GenreId", "AuthorId"] },
+      attributes: { exclude: ["AuthorId", "GenreId"] },
     });
 
     // Returns a response with the list of books by the author
