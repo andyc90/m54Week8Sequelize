@@ -26,10 +26,10 @@ const getAllGenres = async (req, res) => {
 // Returns a list of books by Genre
 const getBooksByGenre = async (req, res) => {
   try {
-    // Extracts the genre ID from the URL parameters
+    // Extracts the GenreID from the URL parameters
     const name = req.params.name;
 
-    // Check if GenreId is present in the URL parameters
+    // Check if Genre name is present in the URL parameters
     if (!name) {
       return res
         .status(400)

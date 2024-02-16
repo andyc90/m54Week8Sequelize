@@ -120,7 +120,6 @@ const deleteBookByTitle = async (req, res) => {
 };
 
 // Delete all books in the database
-
 const deleteAllBooks = async (req, res) => {
   try {
     // Deletes all books in the database
@@ -143,7 +142,7 @@ const updateBookByTitle = async (req, res) => {
     // Extracts the title from the request parameters
     const { title } = req.params;
 
-    // Checks if the title is provided
+    // Checks if the title is provided in URL parameters
     if (!title) {
       return res
         .status(400)
